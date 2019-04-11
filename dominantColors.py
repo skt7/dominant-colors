@@ -15,6 +15,7 @@ class DominantColors:
 
     CLUSTERS = None
     IMAGE = None
+    FLAT_IMAGE = None
     COLORS = None
     LABELS = None
     
@@ -30,7 +31,7 @@ class DominantColors:
         img = img.reshape((img.shape[0] * img.shape[1], 3))
         
         #save image after operations
-        self.IMAGE = img
+        self.FLAT_IMAGE = img
         
         #using k-means to cluster pixels
         kmeans = KMeans(n_clusters = self.CLUSTERS)
@@ -91,7 +92,32 @@ class DominantColors:
         #plotting 
         fig = plt.figure()
         ax = Axes3D(fig)        
-        for label, pix in zip(self.LABELS, self.IMAGE):
+        for label, pix in zip(self.LABELS, self.FLAT_IMAGE):
             ax.scatter(pix[0], pix[1], pix[2], color = self.rgb_to_hex(self.COLORS[label]))
         plt.show()
+        
+    def colorPixels(self):
+        
+        shape = self.IMAGE.shape
+        
+        img = np.zeros((shape[0] * shape[1], 3))
+        labels = self.LABELS
+
+        for i,color in enumerate(self.COLORS):
+            
+            indices = np.where(labels==i)[0]
+            
+            for index in indices:
+                img[index] = color
+        
+        img = img.reshape((shape[0], shape[1], 3)).astype(int)
+        
+        #display img
+        plt.figure()
+        plt.axis("off")
+        plt.imshow(img)
+        plt.show()
+        
+        
+        
 
