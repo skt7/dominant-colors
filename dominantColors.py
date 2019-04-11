@@ -23,12 +23,8 @@ class DominantColors:
         self.IMAGE = image
     
     def dominantColors(self):
-    
-        #open image
-        img = cv2.imread(self.IMAGE)
-        
-        #convert to RGB from BGR
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        img = self.IMAGE
                 
         #reshaping to a list of pixels
         img = img.reshape((img.shape[0] * img.shape[1], 3))

@@ -6,8 +6,16 @@ Created on Sat Jan 27 03:02:28 2018
 """
 
 from dominantColors import DominantColors
+import cv2
 
+#open image
 img = 'colors.jpg'
+img = cv2.imread(img)
+
+#convert to RGB from BGR
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+#no. of clusters
 clusters = 5
 
 #initialize using constructor
